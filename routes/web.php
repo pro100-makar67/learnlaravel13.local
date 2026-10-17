@@ -2,8 +2,22 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use App\Http\Controllers\PostController; /* Подключение контроллера */
+use App\Http\Controllers\TestController; /* Подключение контроллера */
 
+Route::get('/newpost', [PostController::class, 'show']); // Сокращенная запись обращения к контроллеру
+Route::get('newpost', [PostController::class, 'all']); // Обращение ко второму методу контроллера
+Route::get('/longpost', [\App\Http\Controllers\Controller::class, '#']); // Удлиненная запись
 
+Route::get('/rarepost/{id}', [PostController::class, 'show']);
+Route::get('/rarepost/{surname}/{name}', [PostController::class, 'newshow']);
+
+Route::get('/oldpost/', [PostController::class, 'show']);
+Route::get('oldpost/new', [TestController::class, 'oldshow']);
+
+/* 39. Представления в Laravel*/
+Route::get('/views', [TestController::class, 'view']);
+Route::get('/newviews', [TestController::class, 'newview']);
 /*
 class AppServiceProvider extends ServiceProvider
 {
@@ -57,5 +71,38 @@ Route::get('/post/{id}', function ($order) {
     return 'post ' . $order;
 })->where('order', ['name', 'surname', 'age'] ); // ограничение только цифрами и буквами
 
-// Глобальыне ограничения
+// Разрешение конфликтов маршрутов
+Route::get('/get/{id}', function ($id) {
+    return 'get ' . $id;
+})->where('id', );
+Route::get('/get/all/', function () {
+    return 'all';
+})->whereNumber('id');
+Route::get('/get/all/', function () {
+    return 'all';
+});
 
+// Группировка маршрутов в Laravel
+Route::get('/blog/post/all', function () {
+    return 'all';
+});
+Route::get('/blog/post/id', function ($id) {
+    return $id;
+});
+
+// Вынесем общую часть через prefix и group
+Route::prefix('blog')->group(function () {
+    Route::get('/blog/post/all', function () {
+        return 'all';
+    });
+    Route::get('/blog/post/id', function ($id) {
+        return $id;
+    });
+});
+
+// Именованные маршруты в Laravel
+Route::get('/newblog/all/{id}', function ($id) {
+    return 'blogs' . $id;
+})->name('blogs');
+
+// Контроллеры в Laravel
