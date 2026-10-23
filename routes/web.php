@@ -1,16 +1,26 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use App\Http\Controllers\PostController; /* Подключение контроллера */
 use App\Http\Controllers\TestController; /* Подключение контроллера */
 
+
+// 47. Введение в Blade в Laravel
+Route::get('/users', [UserController::class, 'index']);
+
+
 Route::get('/newpost', [PostController::class, 'show']); // Сокращенная запись обращения к контроллеру
 Route::get('newpost', [PostController::class, 'all']); // Обращение ко второму методу контроллера
 Route::get('/longpost', [\App\Http\Controllers\Controller::class, '#']); // Удлиненная запись
 
+
+
 Route::get('/rarepost/{id}', [PostController::class, 'show']);
 Route::get('/rarepost/{surname}/{name}', [PostController::class, 'newshow']);
+
+
 
 Route::get('/oldpost/', [PostController::class, 'show']);
 Route::get('oldpost/new', [TestController::class, 'oldshow']);
@@ -35,6 +45,7 @@ Route::get('/', function () {
     return'!!!!!!!!!!!!!!!';
 });
 
+
 Route::get('/about', function () {
     return 'about page';
 });
@@ -44,6 +55,8 @@ Route::get('/about/{id}', function ($id) {
 Route::get('/about/{catid}/{mouseid}', function ($catid,$mouseid = 1,) {
     return 'ID кошки ' . $catid . 'ID мыши:' . $mouseid;
 });
+
+
 
 // Ограничение параметров маршрутов в Laravel
 Route::get('/post/{id}', function ($id) {
@@ -70,6 +83,7 @@ Route::get('/post/{slug}', function ($slug) {
 Route::get('/post/{id}', function ($order) {
     return 'post ' . $order;
 })->where('order', ['name', 'surname', 'age'] ); // ограничение только цифрами и буквами
+
 
 // Разрешение конфликтов маршрутов
 Route::get('/get/{id}', function ($id) {
@@ -106,3 +120,22 @@ Route::get('/newblog/all/{id}', function ($id) {
 })->name('blogs');
 
 // Контроллеры в Laravel
+// Задание 1
+Route::get('/test', function () {
+    return 'Это тестовая страница!';
+});
+// Задание 2
+Route::get('/dir/test', function () {
+    return 'Сообщение из вложенной директории /dir/test';
+});
+// Задание 3
+Route::get('/about', function () {
+    return 'О нас: мы делаем крутые 676767';
+});
+
+Route::get('/contacts', function () {
+    return 'Контакты: email67@example.com, тел. +7 (999) 123-45-67';
+});
+
+
+
