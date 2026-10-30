@@ -42,7 +42,7 @@ Route::get('/', function () {
 });
  */
 Route::get('/', function () {
-    return'!!!!!!!!!!!!!!!';
+    return view('migrate');
 });
 
 
