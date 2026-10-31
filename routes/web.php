@@ -5,9 +5,11 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use App\Http\Controllers\PostController; /* Подключение контроллера */
 use App\Http\Controllers\TestController; /* Подключение контроллера */
+use App\Http\Controllers\RequestController; /* Подключение контроллера */
 
 
 // 47. Введение в Blade в Laravel
+Route::get('/migration', [RequestController::class, 'show']);
 Route::get('/users', [UserController::class, 'index']);
 
 
