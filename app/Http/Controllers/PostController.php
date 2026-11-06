@@ -3,9 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
-{
+{   public function data()
+{   // через построитель запросов
+    $posts = DB::table('posts')
+        ->where('id', '>', 3)
+        ->get();
+    // то же самое через модель
+    $posts = Post::where('id', '>', 3)->get();
+    $posts = Post::all();
+    foreach($posts as $post)
+    {
+        dump($post->title);
+        dump($post->text);
+    }
+
+}
     public function oldshow($id) {
         $posts = [
         1 => 'Вывеля текст под номером 1',

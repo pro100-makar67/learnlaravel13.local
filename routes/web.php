@@ -19,7 +19,9 @@ Route::get('/longpost', [\App\Http\Controllers\Controller::class, '#']); // Уд
 
 
 
-Route::get('/rarepost/{id}', [PostController::class, 'show']);
+
+Route::get('/rarepost/data', [PostController::class, 'newshow']);
+
 Route::get('/rarepost/{surname}/{name}', [PostController::class, 'newshow']);
 
 
